@@ -1,0 +1,32 @@
+{
+  "name": "acronym",
+  "version": "1.0.0",
+  "description": "REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "NODE_ENV=dev nodemon -r esm src/index.js",
+    "build": "babel src --out-dir build",
+    "production": "NODE_ENV=production node build/index.js",
+    "createmigration": "node-pg-migrate create",
+    "migrate": "node-pg-migrate up",
+    "lint": "npx eslint src",
+    "lint:fix": "npx eslint src --fix",
+    "prettier": "npx prettier src --check --exit || exit 0",
+    "prettier:fix": "npx prettier src --write --exit|| exit 0",
+    "format": "npm run prettier:fix && npm run lint:fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulSebalu/acronym.git"
+  },
+  "keywords": [
+    "API"
+  ],
+  "author": "Paul Sebalu",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/PaulSebalu/acronym/issues"
+  },
+  "homepage": "https://github.com/PaulSebalu/acronym#readme"
+}
