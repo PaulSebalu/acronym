@@ -14,7 +14,8 @@
     "lint:fix": "npx eslint src --fix",
     "prettier": "npx prettier src --check --exit || exit 0",
     "prettier:fix": "npx prettier src --write --exit|| exit 0",
-    "format": "npm run prettier:fix && npm run lint:fix"
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "load:db": "babel-node ./src/core/populateDb.js --exit || exit 0"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,34 @@
   "bugs": {
     "url": "https://github.com/PaulSebalu/acronym/issues"
   },
-  "homepage": "https://github.com/PaulSebalu/acronym#readme"
+  "homepage": "https://github.com/PaulSebalu/acronym#readme",
+  "engines": {
+    "node": ">=10 <13"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.9",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "esm": "^3.2.25",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.14.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "node-pg-migrate": "^5.9.0",
+    "pg": "^8.6.0"
+  }
 }

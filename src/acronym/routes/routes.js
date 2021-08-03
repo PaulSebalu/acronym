@@ -1,9 +1,8 @@
-import { express, json } from "express";
-// import { acronymns } from "./controllers";
+import express from 'express';
+import acronyms from '../controllers/controllers';
 
 const acronymRouter = express.Router();
-acronymRouter.use(json());
 
-acronymRouter.get("/acronym", acronyms);
+acronymRouter.get('/acronym', acronyms);
 
 export default acronymRouter;

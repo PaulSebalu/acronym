@@ -4,6 +4,7 @@ import pool from './dbPool';
 import errorCodes from './pgErrorCodes';
 
 const populateData = () => {
+  let count = 0;
   acronyms.forEach((acronym) => {
     const params = Object.entries(acronym).flat();
 
@@ -15,10 +16,15 @@ const populateData = () => {
       if (err) {
         const message = err.message.replace(/['"]+/g, '');
         const pgErrorCode = errorCodes[err.code];
-        console.log(`Error:${message}`);
-        console.log(`pgErrorCode:${pgErrorCode}`);
+        throw new Error(`${message}\npgErrorCode:${pgErrorCode}`);
       }
-      if (res) console.log(`${res.rows[0].acronym} added to database`);
+
+      if (res.rows) {
+        count += 1;
+      }
+
+      if (count === acronyms.length)
+        console.log(`${count} acronyms added to the database`);
     });
   });
 };
