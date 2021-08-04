@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import query from '../../core/dbConnect';
+import { query, matchStr } from '../../core/utils';
 
 const acronyms = async (req, res) => {
   try {
@@ -15,17 +15,20 @@ const acronyms = async (req, res) => {
     if (limit > 100 || limit < 1)
       return res
         .status(400)
-        .json({ status: 400, message: 'Invalid limit parameter' });
+        .json({ status: 400, message: 'Requested limit not allowed' });
 
     const queryset = rows.slice(offset - 1);
-    const paginatedQueryset = queryset.slice(0, limit);
+    let paginatedQueryset = queryset.slice(0, limit);
+
+    if (req.query.search)
+      paginatedQueryset = matchStr(req.query.search, queryset).slice(0, limit);
 
     return res
       .header('Access-Control-Expose-Headers', 'Content-Range')
       .header('Access-Control-Expose-Headers', 'Accept-Range')
       .header(
         'Content-Range',
-        `${offset - 1}-${offset - 1 + limit - 1}/${paginatedQueryset.length}`
+        `${offset - 1}-${offset - 1 + limit - 1}/${rows.length}`
       )
       .header('Accept-Range', `${resource} 100`)
       .status(206)
