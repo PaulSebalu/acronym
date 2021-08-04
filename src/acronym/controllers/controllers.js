@@ -8,25 +8,24 @@ const acronyms = async (req, res) => {
 
     const resource = req.path.split('/')[1];
 
-    const paginateBy = parseInt(req.query.limit, 10) || 10;
+    const offset = parseInt(req.query.from, 10) || 1;
 
-    if (paginateBy > 100 || paginateBy < 1)
+    const limit = parseInt(req.query.limit, 10) || 10;
+
+    if (limit > 100 || limit < 1)
       return res
         .status(400)
         .json({ status: 400, message: 'Invalid limit parameter' });
 
-    const initialInstance = parseInt(req.query.from, 10);
-    const queryset = rows.slice(initialInstance - 1);
-    const paginatedQueryset = queryset.slice(0, paginateBy);
+    const queryset = rows.slice(offset - 1);
+    const paginatedQueryset = queryset.slice(0, limit);
 
     return res
       .header('Access-Control-Expose-Headers', 'Content-Range')
       .header('Access-Control-Expose-Headers', 'Accept-Range')
       .header(
         'Content-Range',
-        `${initialInstance - 1}-${initialInstance - 1 + paginateBy - 1}/${
-          paginatedQueryset.length
-        }`
+        `${offset - 1}-${offset - 1 + limit - 1}/${paginatedQueryset.length}`
       )
       .header('Accept-Range', `${resource} 100`)
       .status(206)
