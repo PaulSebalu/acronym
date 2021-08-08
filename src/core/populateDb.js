@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import acronyms from './acronym.json';
-import pool from './dbPool';
+import { pool } from './utils';
 import errorCodes from './pgErrorCodes';
 
 const populateData = () => {

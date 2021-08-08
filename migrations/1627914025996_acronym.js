@@ -10,4 +10,6 @@ exports.up = (pgm) => {
   });
 };
 
-exports.down = () => {};
+exports.down = (pgm) => {
+  pgm.dropTable('acronyms');
+};

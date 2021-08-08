@@ -1,2 +1,4 @@
 # acronym
-Acronym REST API
+WTF REST API
+
+- run tests using DATABASE_URL=*** npm run test
