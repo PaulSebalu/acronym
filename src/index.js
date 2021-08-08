@@ -1,13 +1,18 @@
 import express, { json, urlencoded } from 'express';
 import cors from 'cors';
 import env from 'dotenv';
+import pino from 'pino';
+import expressPino from 'express-pino-logger';
 
-import acronymRouter from './acronym/routes/routes';
+import acronymRouter from './acronym/acronymRoute';
+
+const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const expressLogger = expressPino({ logger });
 
 env.config();
 
 const app = express();
-app.use(cors(), json(), urlencoded({ extended: true }));
+app.use(cors(), json(), urlencoded({ extended: true }), expressLogger);
 
 app.use(acronymRouter);
 
@@ -34,8 +39,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server started on port ${PORT}...`);
+  logger.info(`Server started on port ${PORT}...`);
 });
 
 export default app;

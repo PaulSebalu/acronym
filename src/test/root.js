@@ -7,9 +7,8 @@ import app from '../index';
 chai.use(chaiHttp);
 
 describe('World Texting Foundation', () => {
-  it('api is operational', () => {
+  it('api root', (done) => {
     expect(app).to.be.a('function');
-    if (error) done(error);
     done();
   });
 
@@ -19,7 +18,6 @@ describe('World Texting Foundation', () => {
       .get('/')
       .then((res) => {
         expect(res).to.have.status(200);
-        if (error) done(error);
         done();
       });
   });

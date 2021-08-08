@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
-import { query } from '../../core/utils';
-import matchStr from '../utils/utils';
+import { query } from '../core/utils';
+import matchStr from './acronymUtils';
 
 const acronyms = async (req, res) => {
   try {

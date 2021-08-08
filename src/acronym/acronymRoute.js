@@ -1,5 +1,5 @@
 import express from 'express';
-import acronyms from '../controllers/controllers';
+import acronyms from './acronymController';
 
 const acronymRouter = express.Router();
 
