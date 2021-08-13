@@ -44,8 +44,8 @@ const createAcronym = async (req, res) => {
     const { acronym, definition } = req.body;
 
     const sql = `INSERT INTO acronyms
-  (acronym, definition)
-  VALUES ($1, $2) RETURNING *`;
+    (acronym, definition)
+    VALUES ($1, $2) RETURNING *`;
 
     const { rows } = await query(sql, [acronym.trim(), definition.trim()], res);
 
@@ -61,15 +61,15 @@ const updateAcronym = async (req, res) => {
   try {
     const { acronym, definition } = req.body;
 
-    const sql = `UPDATE acronyms
-    SET acronym=$1, definition=$2 WHERE id=$3 RETURNING *`;
+    const sql = `UPDATE acronyms 
+      SET acronym = $1, definition = $2 WHERE id = $3 RETURNING *`;
 
     const { rows } = await query(
       sql,
       [
         (acronym && acronym.trim()) || req.acronym.acronym,
         (definition && definition.trim()) || req.acronym.definition,
-        req.params.id,
+        req.params.acronym,
       ],
       res
     );
@@ -85,9 +85,11 @@ const updateAcronym = async (req, res) => {
 const deleteAcronym = async (req, res) => {
   try {
     const sql = `DELETE FROM acronyms WHERE id=$1`;
-    await query(sql, [req.params.id], res);
+    await query(sql, [req.params.acronym], res);
 
-    return res.status(200).json('Acronym deleted');
+    return res
+      .status(200)
+      .json(`The acronym, ${req.acronym.acronym}, has been deleted`);
   } catch (error) {
     return res.status(500);
   }
