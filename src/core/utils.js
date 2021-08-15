@@ -1,5 +1,6 @@
 import { Pool } from 'pg';
 import env from 'dotenv';
+import jwt from 'jsonwebtoken';
 
 import errorCodes from './pgErrorCodes';
 
@@ -30,4 +31,16 @@ const query = async (sql, params, res) => {
   }
 };
 
-export { pool, query };
+class Token {
+  static createToken(payload) {
+    const token = jwt.sign(payload, process.env.secretkey);
+    return token;
+  }
+
+  static verifyToken(token) {
+    const payload = jwt.verify(token, process.env.secretkey);
+    return payload;
+  }
+}
+
+export { pool, query, Token };

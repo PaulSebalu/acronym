@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { createAcronymSchema, editAcronymSchema } from './acronmyValidators';
-import { query } from '../core/utils';
+import { query, Token } from '../core/utils';
 
 const validateAcronym = async (req, res, next) => {
   try {
@@ -38,4 +38,29 @@ const acronymExists = async (req, res, next) => {
   }
 };
 
-export { validateAcronym, acronymExists };
+const tokenProvided = (req, res, next) => {
+  if (!req.headers.authorization) {
+    return res.status(403).json({
+      status: 403,
+      message: 'Token not provided',
+    });
+  }
+  next();
+};
+
+const verifyToken = async (req, res, next) => {
+  const bearerHeader = req.headers.authorization.split(' ')[1];
+
+  try {
+    const decodedToken = Token.verifyToken(bearerHeader, process.env.secretkey);
+    if (decodedToken) next();
+    // eslint-disable-next-line prefer-destructuring
+  } catch (err) {
+    return res.status(400).json({
+      status: 400,
+      message: err.message,
+    });
+  }
+};
+
+export { validateAcronym, acronymExists, tokenProvided, verifyToken };

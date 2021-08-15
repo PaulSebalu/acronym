@@ -6,21 +6,41 @@ import {
   deleteAcronym,
 } from './acronymController';
 
-import { validateAcronym, acronymExists } from './acronymMiddleware';
+import {
+  validateAcronym,
+  acronymExists,
+  tokenProvided,
+  verifyToken,
+} from './acronymMiddleware';
 
 const acronymRouter = express.Router();
 
-acronymRouter.get('/acronym', acronyms);
+acronymRouter.get('/acronym', tokenProvided, verifyToken, acronyms);
 
-acronymRouter.post('/acronym', validateAcronym, validateAcronym, createAcronym);
+acronymRouter.post(
+  '/acronym',
+  tokenProvided,
+  verifyToken,
+  validateAcronym,
+  validateAcronym,
+  createAcronym
+);
 
 acronymRouter.put(
   '/acronym/:acronym',
+  tokenProvided,
+  verifyToken,
   acronymExists,
   validateAcronym,
   updateAcronym
 );
 
-acronymRouter.delete('/acronym/:acronym', acronymExists, deleteAcronym);
+acronymRouter.delete(
+  '/acronym/:acronym',
+  tokenProvided,
+  verifyToken,
+  acronymExists,
+  deleteAcronym
+);
 
 export default acronymRouter;
