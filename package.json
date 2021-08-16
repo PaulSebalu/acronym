@@ -4,7 +4,7 @@
   "description": "REST API",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test npm run migrate:up && NODE_ENV=test npm run load:db && NODE_ENV=test mocha --require @babel/polyfill --require @babel/register --timeout 1000 ./src/test/ --exit || exit 0",
+    "test": "NODE_ENV=test npm run migrate:up && NODE_ENV=test mocha --require @babel/polyfill --require @babel/register --timeout 1000 ./src/test/ --exit || exit 0",
     "dev": "NODE_ENV=dev nodemon -r esm src/index.js | pino-pretty",
     "build": "babel src --out-dir build",
     "production": "NODE_ENV=production node build/index.js",
@@ -17,7 +17,7 @@
     "prettier:fix": "npx prettier src --write --exit|| exit 0",
     "format": "npm run prettier:fix && npm run lint:fix",
     "load:db": "babel-node ./src/core/populateDb.js --exit || exit 0",
-    "create:token": "babel-node ./src/core/createToken.js --exit || exit 0"
+    "token:create": "babel-node ./src/core/createToken.js --exit || exit 0"
   },
   "repository": {
     "type": "git",

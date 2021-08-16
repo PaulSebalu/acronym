@@ -10,13 +10,23 @@ The API requires Node.js 10.0+. Checkout the [docs](https://nodejs.org/en/) to s
 #### Installation guidelines
 - Clone the [repository](https://github.com/PaulSebalu/acronym) using ```https://github.com/PaulSebalu/acronym.git```
 - On your command line, switch to the app root directory
-- Install dependencies using `npm install`
-- create an  ```.env``` file and specify the ```DATABASE_URL```, ```DB_TEST``` and ```secretkey```.
-- DB URL format: ```'postgres://postgres:postgres@localhost:5432/b4kmart-test'```.
-- Parameters in the URL are the database type, user, password, server instance and the database name.
-- Run tests using `npm run test`
+- Install dependencies using `yarn install`
+- create an  ```.env``` file and specify the ```DATABASE_URL```, ```TEST_DATABASE_URL``` and ```secretkey```.
+- DB URL format: ```postgres://{user}:{password}@{hostname}:{port}/{database-name}```.
+- Run migrations using `DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name} npm run migrate:up`
+- (Optional) Load initial test data using `npm run load:db`
+- Create a token to access the endpoints using `npm run token:create`
+- (Optional) Run tests using `DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name} npm run test` )( :warning: Make sure to use the URL to the test database)
 - Start the development server using `npm run dev`
 - Use [postman](https://www.getpostman.com/downloads/) to test the endpoints listed below
+
+#### Using Docker
+- Make sure to install and configure docker on your development environment
+- Navigate to the app root directory
+- Install dependencies using `yarn install`
+- Use the test token `eyJhbGciOiJIUzI1NiJ9.ZGV2ZWxvcG1lbnQ.PihyA-FiMXlNaI9DLNLqLiS_8-GVdKyjeTFEPmA4rrY` to test access the endpoints
+- Run `docker compose-up` and test the endpoints
+
 
 <br>
 

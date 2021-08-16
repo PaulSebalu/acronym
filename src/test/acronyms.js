@@ -5,7 +5,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
-import { Token } from '../acronym/acronymUtils';
+import { Token } from '../core/utils';
 
 chai.use(chaiHttp);
 
