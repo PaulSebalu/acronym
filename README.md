@@ -16,16 +16,15 @@ The API requires Node.js 10.0+. Checkout the [docs](https://nodejs.org/en/) to s
 - Run migrations using `DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name} npm run migrate:up`
 - (Optional) Load initial test data using `npm run load:db`
 - Create a token to access the endpoints using `npm run token:create`
-- (Optional) Run tests using `DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name} npm run test` )( :warning: Make sure to use the URL to the test database)
+- (Optional) Run tests using `DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name} npm run test` )( :bomb: Make sure to use the URL to the test database)
 - Start the development server using `npm run dev`
 - Use [postman](https://www.getpostman.com/downloads/) to test the endpoints listed below
 
 #### Using Docker
 - Make sure to install and configure docker on your development environment
 - Navigate to the app root directory
-- Install dependencies using `yarn install`
-- Use the test token `eyJhbGciOiJIUzI1NiJ9.ZGV2ZWxvcG1lbnQ.PihyA-FiMXlNaI9DLNLqLiS_8-GVdKyjeTFEPmA4rrY` to test access the endpoints
 - Run `docker compose-up` and test the endpoints
+- Use the token `eyJhbGciOiJIUzI1NiJ9.ZGV2ZWxvcG1lbnQ.PihyA-FiMXlNaI9DLNLqLiS_8-GVdKyjeTFEPmA4rrY` to test the endpoints
 
 
 <br>
