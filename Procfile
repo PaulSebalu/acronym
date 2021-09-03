@@ -1,2 +1,2 @@
 web: yarn migrate:up
-web: yarn start
+web: yarn staging
