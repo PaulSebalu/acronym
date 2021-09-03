@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.acronymExists = exports.validateAcronym = void 0;
+exports.verifyToken = exports.tokenProvided = exports.acronymExists = exports.validateAcronym = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -124,3 +124,54 @@ var acronymExists = /*#__PURE__*/function () {
 }();
 
 exports.acronymExists = acronymExists;
+
+var tokenProvided = function tokenProvided(req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(403).json({
+      status: 403,
+      message: 'Token not provided'
+    });
+  }
+
+  next();
+};
+
+exports.tokenProvided = tokenProvided;
+
+var verifyToken = /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res, next) {
+    var bearerHeader, decodedToken;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            bearerHeader = req.headers.authorization.split(' ')[1];
+            _context3.prev = 1;
+            decodedToken = _utils.Token.verifyToken(bearerHeader, process.env.secretkey);
+            if (decodedToken) next(); // eslint-disable-next-line prefer-destructuring
+
+            _context3.next = 9;
+            break;
+
+          case 6:
+            _context3.prev = 6;
+            _context3.t0 = _context3["catch"](1);
+            return _context3.abrupt("return", res.status(400).json({
+              status: 400,
+              message: _context3.t0.message
+            }));
+
+          case 9:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[1, 6]]);
+  }));
+
+  return function verifyToken(_x7, _x8, _x9) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.verifyToken = verifyToken;
