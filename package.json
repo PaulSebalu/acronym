@@ -18,7 +18,9 @@
     "prettier:fix": "npx prettier src --write --exit|| exit 0",
     "format": "npm run prettier:fix && npm run lint:fix",
     "load:db": "babel-node ./src/core/populateDb.js --exit || exit 0",
-    "token:create": "babel-node ./src/core/createToken.js --exit || exit 0"
+    "token:create": "babel-node ./src/core/createToken.js --exit || exit 0",
+    "load:db:staging": "node ./build/core/populateDb.js --exit || exit 0",
+    "token:create:staging": "node ./build/core/createToken.js --exit || exit 0"
   },
   "repository": {
     "type": "git",
